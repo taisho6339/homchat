@@ -1,2 +1,6 @@
 server:
   port: 10000
+  ssl:
+    key-store: "/etc/letsencrypt/live/taishonet.com/keystore.p12"
+    key-store-password: taisho6339
+    key-password: taisho6339
