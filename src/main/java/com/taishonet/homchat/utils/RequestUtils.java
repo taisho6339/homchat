@@ -21,8 +21,13 @@ public class RequestUtils {
             return null;
         }
         RequestEntity requestEntity = createRequestEntity(apiUrl, headers);
-        ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
-        return responseEntity.getBody() != null ? responseEntity.getBody() : "";
+        try {
+            ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
+            return responseEntity.getBody() != null ? responseEntity.getBody() : "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private static RequestEntity createRequestEntity(String apiURL, Map<String, String> headers) throws URISyntaxException {
