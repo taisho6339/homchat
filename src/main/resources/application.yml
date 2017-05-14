@@ -1,10 +1,10 @@
 server:
-  port: 443
+  port: 10000
 #  ssl:
 #    key-store: "/etc/letsencrypt/live/taishonet.com/keystore.p12"
 #    key-store-password: taisho6339
 #    keyStoreType: PKCS12
 #    key-alias: tomcat
 #    key-password: taisho6339
-security:
-  require-ssl: true
+#security:
+#require-ssl: true
