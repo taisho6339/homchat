@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.SystemPropertyUtils;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class LineRepository {
         List<String> messageList = new ArrayList<>();
         messageList.add("{\"type\":\"text\",\"message\":\"キュキュい！\"}");
         params.put(LINE_MESSAGES, messageList);
+
+        System.out.println("Token:" + replyToken);
 
         try {
             RequestUtils.post(LINE_REPLY_API, headers, params);
