@@ -3,4 +3,7 @@ server:
   ssl:
     key-store: "/etc/letsencrypt/live/taishonet.com/keystore.p12"
     key-store-password: taisho6339
-    key-password: taisho6339
+    keyStoreType: PKCS12
+    key-alias: tomcat
+security:
+  require-ssl: true
