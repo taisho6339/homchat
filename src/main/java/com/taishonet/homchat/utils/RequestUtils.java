@@ -20,6 +20,7 @@ public class RequestUtils {
         if (StringUtils.isEmpty(apiUrl)) {
             return null;
         }
+
         RequestEntity requestEntity = createRequestEntity(apiUrl, headers);
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
@@ -38,7 +39,7 @@ public class RequestUtils {
             return builder.build();
         }
         headers.keySet()
-                .forEach(key -> builder.header(headers.get(key)));
+                .forEach(key -> builder.header(key, headers.get(key)));
 
         return builder.build();
     }

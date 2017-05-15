@@ -6,7 +6,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.SystemPropertyUtils;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -18,8 +17,8 @@ import java.util.Map;
 public class LineRepository {
     private static final String LINE_REPLY_API = "https://api.line.me/v2/bot/message/reply";
     private static final String LINE_ACCESS_TOKEN = "Bearer geQoaqxQA2Nd9E9bKrCWZDuoFi/7+1GSkxJH8B3EFA3GYPGZv0gjPGfprECrOS2nysbzH9XJqZWm3KQnJWORJveMcEBOJvWrl/MG5CwxU8d5U59aWUAas6ALqwwt+H/yid8dfKwQKtyehLnooNw1oAdB04t89/1O/w1cDnyilFU=";
-    private static final String LINE_REPLY_TOKEN = "replyToken";
-    private static final String LINE_MESSAGES = "messages";
+    private static final String LINE_REPLY_TOKEN_KEY = "replyToken";
+    private static final String LINE_MESSAGES_KEY = "messages";
 
     public void reply(String replyToken) {
         Map<String, String> headers = new HashMap<>();
@@ -27,11 +26,11 @@ public class LineRepository {
         headers.put(HttpHeaders.AUTHORIZATION, LINE_ACCESS_TOKEN);
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.set(LINE_REPLY_TOKEN, replyToken);
+        params.set(LINE_REPLY_TOKEN_KEY, replyToken);
 
         List<String> messageList = new ArrayList<>();
         messageList.add("{\"type\":\"text\",\"message\":\"キュキュい！\"}");
-        params.put(LINE_MESSAGES, messageList);
+        params.put(LINE_MESSAGES_KEY, messageList);
 
         System.out.println("Token:" + replyToken);
 
