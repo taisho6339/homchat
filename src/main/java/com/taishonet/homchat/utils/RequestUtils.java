@@ -23,7 +23,7 @@ public class RequestUtils {
             return null;
         }
 
-        RequestEntity<HttpRequest> requestEntity = createRequestEntity(apiUrl, headers, params);
+        RequestEntity<String> requestEntity = createRequestEntity(apiUrl, headers, params);
         System.out.println("RequestInfo:" + requestEntity.toString());
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
@@ -34,13 +34,31 @@ public class RequestUtils {
         }
     }
 
-    private static RequestEntity<HttpRequest> createRequestEntity(String apiURL, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
+    private static RequestEntity<String> createRequestEntity(String apiURL, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
         RequestEntity.BodyBuilder builder = RequestEntity.post(new URI(apiURL));
         if (headers == null || headers.isEmpty()) {
-            return builder.body(params);
+            return builder.body("\"messages\":[\n" +
+                    "        {\n" +
+                    "            \"type\":\"text\",\n" +
+                    "            \"text\":\"Hello, user\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"type\":\"text\",\n" +
+                    "            \"text\":\"May I help you?\"\n" +
+                    "        }\n" +
+                    "    ]");
         }
         headers.keySet()
                 .forEach(key -> builder.header(key, headers.get(key)));
-        return builder.body(params);
+        return builder.body("\"messages\":[\n" +
+                "        {\n" +
+                "            \"type\":\"text\",\n" +
+                "            \"text\":\"Hello, user\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"type\":\"text\",\n" +
+                "            \"text\":\"May I help you?\"\n" +
+                "        }\n" +
+                "    ]");
     }
 }
