@@ -22,6 +22,7 @@ public class RequestUtils {
         }
 
         RequestEntity requestEntity = createRequestEntity(apiUrl, headers);
+        System.out.println("RequestInfo:" + requestEntity.toString());
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
             return responseEntity.getBody() != null ? responseEntity.getBody() : "";
