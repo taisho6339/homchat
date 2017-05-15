@@ -1,5 +1,7 @@
 package com.taishonet.homchat.utils;
 
+import com.taishonet.homchat.dto.HttpRequest;
+
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
@@ -16,12 +18,12 @@ public class RequestUtils {
     private RequestUtils() {
     }
 
-    public static String post(String apiUrl, Map<String, String> headers, MultiValueMap<String, String> params) throws URISyntaxException {
+    public static String post(String apiUrl, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
         if (StringUtils.isEmpty(apiUrl)) {
             return null;
         }
 
-        RequestEntity requestEntity = createRequestEntity(apiUrl, headers);
+        RequestEntity<HttpRequest> requestEntity = createRequestEntity(apiUrl, headers, params);
         System.out.println("RequestInfo:" + requestEntity.toString());
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
@@ -32,16 +34,13 @@ public class RequestUtils {
         }
     }
 
-    private static RequestEntity createRequestEntity(String apiURL, Map<String, String> headers) throws URISyntaxException {
-        RequestEntity.BodyBuilder builder = RequestEntity
-                .post(new URI(apiURL));
-
+    private static RequestEntity<HttpRequest> createRequestEntity(String apiURL, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
+        RequestEntity.BodyBuilder builder = RequestEntity.post(new URI(apiURL));
         if (headers == null || headers.isEmpty()) {
-            return builder.build();
+            return builder.body(params);
         }
         headers.keySet()
                 .forEach(key -> builder.header(key, headers.get(key)));
-
-        return builder.build();
+        return builder.body(params);
     }
 }

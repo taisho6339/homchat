@@ -1,5 +1,7 @@
 package com.taishonet.homchat.repository;
 
+import com.taishonet.homchat.dto.LineMessage;
+import com.taishonet.homchat.dto.LineReplyRequest;
 import com.taishonet.homchat.utils.RequestUtils;
 
 import org.springframework.http.HttpHeaders;
@@ -26,17 +28,12 @@ public class LineRepository {
         headers.put(HttpHeaders.CONTENT_TYPE, "application/json");
         headers.put(HttpHeaders.AUTHORIZATION, LINE_ACCESS_TOKEN);
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add(LINE_REPLY_TOKEN_KEY, replyToken);
-
-        List<String> messageList = new ArrayList<>();
-        messageList.add("{\"type\":\"text\",\"message\":\"キュキュい！\"}");
-        params.put(LINE_MESSAGES_KEY, messageList);
-
-        System.out.println("Token:" + replyToken);
+        LineReplyRequest replyRequest = new LineReplyRequest();
+        replyRequest.setReplyToken(replyToken);
+        replyRequest.addMessage(new LineMessage("text", "キュイキュイ！"));
 
         try {
-            RequestUtils.post(LINE_REPLY_API, headers, params);
+            RequestUtils.post(LINE_REPLY_API, headers, replyRequest);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
