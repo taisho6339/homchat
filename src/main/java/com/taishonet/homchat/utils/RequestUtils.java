@@ -4,6 +4,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +24,7 @@ public class RequestUtils {
         }
 
         RequestEntity requestEntity = createPostRequestEntity(apiUrl, headers, params);
+        System.out.println(requestEntity);
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
             return responseEntity.getBody() != null ? responseEntity.getBody() : "";
