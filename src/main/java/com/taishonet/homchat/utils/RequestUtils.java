@@ -27,6 +27,8 @@ public class RequestUtils {
         System.out.println("RequestInfo:" + requestEntity.toString());
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
+            System.out.println(responseEntity.getStatusCode());
+            System.out.println(responseEntity.getBody());
             return responseEntity.getBody() != null ? responseEntity.getBody() : "";
         } catch (Exception e) {
             e.printStackTrace();
