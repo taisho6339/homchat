@@ -43,7 +43,7 @@ public class RequestUtils {
                     .forEach(key -> builder.header(key, headers.get(key)));
         }
         if (params != null) {
-            builder.body(params);
+            return builder.body(params);
         }
         return builder.build();
     }
