@@ -21,9 +21,7 @@ public class LineEventHandler {
 
     @EventMapping
     public TextMessage receiveMessage(MessageEvent<TextMessageContent> event) {
-        //TODO: Trelloに投稿する
-        //TODO: 投稿したことをLINEに通知する
-        repository.addNewDateCardToTrello(event.getMessage().getText());
-        return new TextMessage("きゅいきゅい！");
+        String registeredUrl = repository.registerNewDateCardToTrello(event.getMessage().getText());
+        return new TextMessage("きゅいきゅい！ つ" + registeredUrl);
     }
 }

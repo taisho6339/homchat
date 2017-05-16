@@ -1,5 +1,8 @@
 package com.taishonet.homchat.repository;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.taishonet.homchat.dto.TrelloCard;
 import com.taishonet.homchat.utils.RequestUtils;
 
 import org.springframework.stereotype.Repository;
@@ -17,7 +20,7 @@ public class TrelloRepository {
 
     private static final String TRELLO_ADD_CARD_API = "https://api.trello.com/1/cards/";
 
-    public void addNewDateCardToTrello(String name) {
+    public String registerNewDateCardToTrello(String name) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.set("key", TRELLO_KEY);
         params.set("token", TRELLO_TOKEN);
@@ -25,9 +28,11 @@ public class TrelloRepository {
         params.set("name", name);
         try {
             String body = RequestUtils.post(TRELLO_ADD_CARD_API, null, params);
-            System.out.println(body);
+            TrelloCard trelloCard = new Gson().fromJson(body, TrelloCard.class);
+            return trelloCard.getUrl();
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            return "";
         }
     }
 }
