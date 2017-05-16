@@ -18,7 +18,7 @@ public class RequestUtils {
     private RequestUtils() {
     }
 
-    public static String post(String apiUrl, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
+    public static String post(String apiUrl, Map<String, String> headers, String params) throws URISyntaxException {
         if (StringUtils.isEmpty(apiUrl)) {
             return null;
         }
@@ -34,31 +34,13 @@ public class RequestUtils {
         }
     }
 
-    private static RequestEntity<String> createRequestEntity(String apiURL, Map<String, String> headers, HttpRequest params) throws URISyntaxException {
+    private static RequestEntity<String> createRequestEntity(String apiURL, Map<String, String> headers, String params) throws URISyntaxException {
         RequestEntity.BodyBuilder builder = RequestEntity.post(new URI(apiURL));
         if (headers == null || headers.isEmpty()) {
-            return builder.body("\"messages\":[\n" +
-                    "        {\n" +
-                    "            \"type\":\"text\",\n" +
-                    "            \"text\":\"Hello, user\"\n" +
-                    "        },\n" +
-                    "        {\n" +
-                    "            \"type\":\"text\",\n" +
-                    "            \"text\":\"May I help you?\"\n" +
-                    "        }\n" +
-                    "    ]");
+            return builder.body(params);
         }
         headers.keySet()
                 .forEach(key -> builder.header(key, headers.get(key)));
-        return builder.body("\"messages\":[\n" +
-                "        {\n" +
-                "            \"type\":\"text\",\n" +
-                "            \"text\":\"Hello, user\"\n" +
-                "        },\n" +
-                "        {\n" +
-                "            \"type\":\"text\",\n" +
-                "            \"text\":\"May I help you?\"\n" +
-                "        }\n" +
-                "    ]");
+        return builder.body(params);
     }
 }

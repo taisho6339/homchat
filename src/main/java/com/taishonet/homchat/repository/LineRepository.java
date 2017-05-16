@@ -33,7 +33,19 @@ public class LineRepository {
         replyRequest.addMessage(new LineMessage("text", "キュイキュイ！"));
 
         try {
-            RequestUtils.post(LINE_REPLY_API, headers, replyRequest);
+            RequestUtils.post(LINE_REPLY_API, headers, "{\n" +
+                    "    \"replyToken\":" + replyToken + ",\n" +
+                    "    \"messages\":[\n" +
+                    "        {\n" +
+                    "            \"type\":\"text\",\n" +
+                    "            \"text\":\"Hello, user\"\n" +
+                    "        },\n" +
+                    "        {\n" +
+                    "            \"type\":\"text\",\n" +
+                    "            \"text\":\"May I help you?\"\n" +
+                    "        }\n" +
+                    "    ]\n" +
+                    "}");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
