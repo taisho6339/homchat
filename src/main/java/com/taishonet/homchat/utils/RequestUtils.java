@@ -35,7 +35,7 @@ public class RequestUtils {
         } catch (HttpClientErrorException e) {
             System.out.println("今からなんで死んだか教えるよ");
             System.out.println(e.getMessage());
-            System.out.println(e.toString());
+            System.out.println(e.getResponseBodyAsString());
             e.printStackTrace();
             return "";
         }
