@@ -27,7 +27,7 @@ public class LineEventHandler {
         if (!message.contains("追加")) {
             return new TextMessage("きゅいきゅい！");
         }
-        String[] commands = message.split("追加 ");
+        String[] commands = message.split("追加　");
         if (commands.length == 2) {
             String registeredUrl = repository.registerNewDateCardToTrello(commands[1]);
             return new TextMessage("きゅいきゅい！ つ" + registeredUrl);
