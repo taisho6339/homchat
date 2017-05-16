@@ -28,19 +28,19 @@ import java.util.List;
 @LineMessageHandler
 public class MessageRestController {
 
-    @Autowired
-    private LineRepository lineRepository;
+//    @Autowired
+//    private LineRepository lineRepository;
 
-    @RequestMapping(path = "/receive", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.ACCEPTED)
-//    @EventMapping
-    public TextMessage index(@RequestBody LineEvent lineEvent) {
-//        System.out.println("event: " + event);
-//        return new TextMessage("きゅいきゅい！");
-        List<EventPart> eventPartList = lineEvent.getEvents();
-        eventPartList.stream()
-                .filter(eventPart -> !(StringUtils.isEmpty(eventPart.getReplyToken())))
-                .forEach(eventPart -> lineRepository.reply(eventPart.getReplyToken()));
+    //    @RequestMapping(path = "/receive", method = RequestMethod.POST)
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+    @EventMapping
+    public TextMessage index(MessageEvent<TextMessageContent> event) {
+        System.out.println("event: " + event);
+        return new TextMessage("きゅいきゅい！");
+//        List<EventPart> eventPartList = lineEvent.getEvents();
+//        eventPartList.stream()
+//                .filter(eventPart -> !(StringUtils.isEmpty(eventPart.getReplyToken())))
+//                .forEach(eventPart -> lineRepository.reply(eventPart.getReplyToken()));
         //TODO: Trelloに投稿する
         //TODO: 投稿したことをLINEに通知する
     }
