@@ -34,7 +34,7 @@ public class MessageRestController {
     @RequestMapping(path = "/receive", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
 //    @EventMapping
-    public TextMessage index(@RequestBody LineEvent lineEvent) {
+    public void index(@RequestBody LineEvent lineEvent) {
 //        System.out.println("event: " + event);
 //        return new TextMessage("きゅいきゅい！");
         List<EventPart> eventPartList = lineEvent.getEvents();
