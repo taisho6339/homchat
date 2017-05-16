@@ -24,8 +24,8 @@ import java.util.List;
  * Created by taisho6339 on 2017/05/13.
  */
 @RestController
-@RequestMapping("/message")
-//@LineMessageHandler
+//@RequestMapping("/message")
+@LineMessageHandler
 public class MessageRestController {
 
     @Autowired
