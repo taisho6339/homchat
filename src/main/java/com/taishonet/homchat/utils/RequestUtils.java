@@ -22,8 +22,7 @@ public class RequestUtils {
             return null;
         }
 
-        RequestEntity<MultiValueMap<String, String>> requestEntity
-                = createPostRequestEntity(apiUrl, headers, params);
+        RequestEntity requestEntity = createPostRequestEntity(apiUrl, headers, params);
         try {
             ResponseEntity<String> responseEntity = REST_TEMPLATE.exchange(requestEntity, String.class);
             return responseEntity.getBody() != null ? responseEntity.getBody() : "";
@@ -34,13 +33,15 @@ public class RequestUtils {
         }
     }
 
-    private static RequestEntity<MultiValueMap<String, String>> createPostRequestEntity(String apiURL, Map<String, String> headers, MultiValueMap<String, String> params) throws URISyntaxException {
+    private static RequestEntity createPostRequestEntity(String apiURL, Map<String, String> headers, MultiValueMap<String, String> params) throws URISyntaxException {
         RequestEntity.BodyBuilder builder = RequestEntity.post(new URI(apiURL));
-        if (headers == null || headers.isEmpty()) {
-            return builder.body(params);
+        if (headers != null) {
+            headers.keySet()
+                    .forEach(key -> builder.header(key, headers.get(key)));
         }
-        headers.keySet()
-                .forEach(key -> builder.header(key, headers.get(key)));
-        return builder.body(params);
+        if (params != null) {
+            builder.body(params);
+        }
+        return builder.build();
     }
 }
