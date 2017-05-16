@@ -34,7 +34,7 @@ public class LineRepository {
 
         try {
             RequestUtils.post(LINE_REPLY_API, headers, "{\n" +
-                    "    \"replyToken\":" + replyToken + ",\n" +
+                    "    \"replyToken\":\"" + replyToken + "\",\n" +
                     "    \"messages\":[\n" +
                     "        {\n" +
                     "            \"type\":\"text\",\n" +
