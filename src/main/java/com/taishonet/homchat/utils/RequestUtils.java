@@ -6,6 +6,8 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.util.SystemPropertyUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -30,7 +32,10 @@ public class RequestUtils {
             System.out.println(responseEntity.getStatusCode());
             System.out.println(responseEntity.getBody());
             return responseEntity.getBody() != null ? responseEntity.getBody() : "";
-        } catch (Exception e) {
+        } catch (HttpClientErrorException e) {
+            System.out.println("今からなんで死んだか教えるよ");
+            System.out.println(e.getMessage());
+            System.out.println(e.toString());
             e.printStackTrace();
             return "";
         }
