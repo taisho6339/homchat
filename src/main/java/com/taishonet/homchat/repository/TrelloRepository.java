@@ -24,7 +24,7 @@ public class TrelloRepository {
         params.set("idList", TRELLO_TARGET_LIST_ID);
         params.set("name", name);
         try {
-            String body = RequestUtils.post(TRELLO_ADD_CARD_API + name, null, params);
+            String body = RequestUtils.post(TRELLO_ADD_CARD_API, null, params);
             System.out.println(body);
         } catch (URISyntaxException e) {
             e.printStackTrace();
