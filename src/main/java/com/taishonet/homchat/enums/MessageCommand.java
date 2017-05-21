@@ -15,7 +15,7 @@ import lombok.Getter;
 public enum MessageCommand {
     ADD_TRELLO(0, "追加", (targetStr) -> {
         Map<String, String> params = new HashMap<>();
-        Matcher matcher = RegexUtils.patternMatch("\"追加\\\\s(\\\\S+)\\\\s?(\\\\S*)\"", targetStr);
+        Matcher matcher = RegexUtils.patternMatch("(追加\\s)(\\S+)\\s?(\\S*)", targetStr);
         if (!matcher.find()) {
             return params;
         }
