@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  homchat_web:
+    image: nginx:latest
+    volumes:
+     - $PWD/nginx/homchat.conf:/etc/nginx/conf.d/default.conf
+    ports:
+     - "10080:80"
+     - "10443:443"
+    environment:
+     - NGINX_HOST=taishonet.com
+     - NGINX_PORT=80
