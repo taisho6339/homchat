@@ -37,9 +37,9 @@ public class TrelloRepository {
                     .stream()
                     .map(card -> {
                         StringJoiner joiner = new StringJoiner("\n");
-                        joiner.add(card.getName()).add(card.getDesc()).add(card.getUrl());
+                        joiner.add(card.getName()).add(card.getUrl());
                         return joiner.toString();
-                    }).collect(Collectors.joining("\n"));
+                    }).collect(Collectors.joining("\n\n"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return "";
