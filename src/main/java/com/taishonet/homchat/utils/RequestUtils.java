@@ -55,7 +55,7 @@ public class RequestUtils {
         }
 
         if (params != null) {
-            requestInternal(builder.body(params));
+            return requestInternal(builder.body(params));
         }
 
         return requestInternal(builder.build());
