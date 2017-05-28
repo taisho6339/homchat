@@ -6,6 +6,7 @@ import com.taishonet.homchat.repository.TrelloRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -29,6 +30,14 @@ public class MessageService {
         return new TextMessage("きゅいきゅい！ つ" + registeredUrl);
     }
 
+    private TextMessage executeReferTrelloList() {
+        String message = trelloRepository.refererTrelloList();
+        if (StringUtils.isEmpty(message)) {
+            return null;
+        }
+        return new TextMessage(message);
+    }
+
     private MessageCommand parseMessageCommand(String receiveMessage) {
         return Arrays.stream(MessageCommand.values())
                 .filter(val -> receiveMessage.contains(val.getCommand()))
@@ -40,9 +49,11 @@ public class MessageService {
         switch (command) {
         case ADD_TRELLO:
             return executeAddTrelloCard(command, receiveMessage);
-        case NO_COMMAND:
+        case LOOK_TRELLO:
+            return executeReferTrelloList();
+        case NO_COMMAND: //コマンド時以外は応答しない
         default:
-            return new TextMessage("きゅいきゅい！");
+            return null;
         }
     }
 }

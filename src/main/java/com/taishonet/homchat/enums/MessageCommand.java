@@ -25,6 +25,7 @@ public enum MessageCommand {
     }),
     LOOK_TRELLO(1, "参照", null),
     NO_COMMAND(99, "その他", null);
+    //TODO HELPコマンドを作る
 
     private int code;
     private String command;

@@ -2,6 +2,7 @@ package com.taishonet.homchat.repository;
 
 import com.google.gson.Gson;
 import com.taishonet.homchat.dto.TrelloCard;
+import com.taishonet.homchat.dto.TrelloCardList;
 import com.taishonet.homchat.utils.RequestUtils;
 
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 @Repository
 public class TrelloRepository {
@@ -19,6 +23,28 @@ public class TrelloRepository {
     private static final String TRELLO_TARGET_LIST_ID = "591af9ccf8b507be793d546c";
 
     private static final String TRELLO_ADD_CARD_API = "https://api.trello.com/1/cards/";
+    private static final String TRELLO_REFERER_LIST_API = "https://api.trello.com/1/lists/591af9ccf8b507be793d546c";
+
+    public String refererTrelloList() {
+        Map<String, String> params = new HashMap<>();
+        params.put("key", TRELLO_KEY);
+        params.put("token", TRELLO_TOKEN);
+        params.put("cards", "open");
+        try {
+            String body = RequestUtils.get(TRELLO_REFERER_LIST_API, null, params);
+            TrelloCardList trelloCardList = new Gson().fromJson(body, TrelloCardList.class);
+            return trelloCardList.getCards()
+                    .stream()
+                    .map(card -> {
+                        StringJoiner joiner = new StringJoiner("\n");
+                        joiner.add(card.getName()).add(card.getDesc()).add(card.getUrl());
+                        return joiner.toString();
+                    }).collect(Collectors.joining("\n"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
     public String registerNewDateCardToTrello(Map<String, String> addParamMap) {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
