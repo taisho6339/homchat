@@ -24,9 +24,6 @@ public class LineEventHandler {
 
     @EventMapping
     public TextMessage receiveMessage(MessageEvent<TextMessageContent> event) {
-        log.warn(event.getSource().toString());
-        log.warn(event.getSource().getUserId());
-        log.warn(event.getSource().getSenderId());
         return messageService.dispatchMessageCommand(event.getMessage().getText());
     }
 }
