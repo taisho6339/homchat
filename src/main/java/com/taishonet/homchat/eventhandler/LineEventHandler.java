@@ -9,7 +9,10 @@ import com.taishonet.homchat.service.MessageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import lombok.extern.log4j.Log4j;
+
 @LineMessageHandler
+@Log4j
 public class LineEventHandler {
 
     private MessageService messageService;
@@ -21,6 +24,9 @@ public class LineEventHandler {
 
     @EventMapping
     public TextMessage receiveMessage(MessageEvent<TextMessageContent> event) {
+        log.warn(event.getSource().toString());
+        log.warn(event.getSource().getUserId());
+        log.warn(event.getSource().getSenderId());
         return messageService.dispatchMessageCommand(event.getMessage().getText());
     }
 }
