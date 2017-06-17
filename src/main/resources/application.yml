@@ -2,8 +2,8 @@ server:
   port: 10000
 line:
   bot:
-    channelSecret: 2b7c3ef6df84e60406d3e13051a6c95a
-    channelToken: geQoaqxQA2Nd9E9bKrCWZDuoFi/7+1GSkxJH8B3EFA3GYPGZv0gjPGfprECrOS2nysbzH9XJqZWm3KQnJWORJveMcEBOJvWrl/MG5CwxU8d5U59aWUAas6ALqwwt+H/yid8dfKwQKtyehLnooNw1oAdB04t89/1O/w1cDnyilFU=
+    channelSecret: ab0cde8418d11b9f8203d0fcbef57095
+    channelToken: EEkyOew4mBq2FP8H/FExn1pRy8vIOcrqXTFO7xl05ns4bXEDcOc5v2DHghSTZ1165BxNsjF3i7PDPCyldrZplMiT4JpN2BWAM4rp9Abjdm3MXUBfPZkqJcYwW8bkDY7NFEvxBzetzfPPvN9iNvm77wdB04t89/1O/w1cDnyilFU=
 #  ssl:
 #    key-store: "/etc/letsencrypt/live/taishonet.com/keystore.p12"
 #    key-store-password: taisho6339
