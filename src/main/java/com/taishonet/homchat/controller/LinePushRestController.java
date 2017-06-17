@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/push")
 public class LinePushRestController {
 
     private LineService lineService;
@@ -27,13 +27,13 @@ public class LinePushRestController {
         this.menstruationService = menstruationService;
     }
 
-    @RequestMapping(path = "/push", method = RequestMethod.POST)
+    @RequestMapping(path = "/message", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void pushMessage(@Validated @RequestBody LinePushMessageRequest request) {
         lineService.pushMessage(request.getMessage());
     }
 
-    @RequestMapping(path = "/push/menstruation", method = RequestMethod.POST)
+    @RequestMapping(path = "/menstruation", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void pushMenstruationMessage() {
         String message = menstruationService.getRegisteredMenstruation();
