@@ -22,7 +22,7 @@ public class MenstruationService {
     public String getRegisteredMenstruation() {
         String codeStr = redisRepository.getForKey(KEY_MENSTRUATION, null);
         if (StringUtils.isEmpty(codeStr)) {
-            return "";
+            return "生理の重みを入力してね！";
         }
         int code = Integer.valueOf(codeStr);
         MenstruationWeight menstruationWeight = Arrays.stream(MenstruationWeight.values())
