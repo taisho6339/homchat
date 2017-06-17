@@ -15,10 +15,12 @@ import java.util.Map;
 public class MessageService {
 
     private TrelloRepository trelloRepository;
+    private MenstruationService menstruationService;
 
     @Autowired
-    public MessageService(TrelloRepository trelloRepository) {
+    public MessageService(TrelloRepository trelloRepository, MenstruationService menstruationService) {
         this.trelloRepository = trelloRepository;
+        this.menstruationService = menstruationService;
     }
 
     private TextMessage executeAddTrelloCard(MessageCommand messageCommand, String receiveMessage) {
@@ -38,6 +40,17 @@ public class MessageService {
         return new TextMessage(message);
     }
 
+    private TextMessage executeRegisterMenstruation(MessageCommand messageCommand, String receiveMessage) {
+        //TODO 共通化したい。糞。
+        Map<String, String> params = messageCommand.getParseArgumentsFunction().apply(receiveMessage);
+        if (params.isEmpty()) {
+            return new TextMessage("パラメータが足りないきゅい！");
+        }
+        //TODO 糞。あとで直す
+        String message = menstruationService.registerMenstruation(params.get("weight"));
+        return new TextMessage(message);
+    }
+
     private MessageCommand parseMessageCommand(String receiveMessage) {
         return Arrays.stream(MessageCommand.values())
                 .filter(val -> receiveMessage.contains(val.getCommand()))
@@ -51,6 +64,8 @@ public class MessageService {
             return executeAddTrelloCard(command, receiveMessage);
         case LOOK_TRELLO:
             return executeReferTrelloList();
+        case REGISTER_MENSTRUATION:
+            return executeRegisterMenstruation(command, receiveMessage);
         case NO_COMMAND: //コマンド時以外は応答しない
         default:
             return null;
