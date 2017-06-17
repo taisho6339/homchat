@@ -11,7 +11,10 @@ import org.springframework.util.StringUtils;
 import java.util.Arrays;
 import java.util.Map;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class MessageService {
 
     private TrelloRepository trelloRepository;
@@ -41,6 +44,7 @@ public class MessageService {
     }
 
     private TextMessage executeRegisterMenstruation(MessageCommand messageCommand, String receiveMessage) {
+        log.warn("生理りまいんどはいったよ");
         //TODO 共通化したい。糞。
         Map<String, String> params = messageCommand.getParseArgumentsFunction().apply(receiveMessage);
         if (params.isEmpty()) {
@@ -48,6 +52,7 @@ public class MessageService {
         }
         //TODO 糞。あとで直す
         String message = menstruationService.registerMenstruation(params.get("weight"));
+        log.warn(message);
         return new TextMessage(message);
     }
 
@@ -59,6 +64,7 @@ public class MessageService {
 
     public TextMessage dispatchMessageCommand(String receiveMessage) {
         MessageCommand command = parseMessageCommand(receiveMessage);
+        log.warn(command.getCommand());
         switch (command) {
         case ADD_TRELLO:
             return executeAddTrelloCard(command, receiveMessage);

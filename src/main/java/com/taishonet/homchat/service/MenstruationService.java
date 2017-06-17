@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class MenstruationService {
     private static final String KEY_MENSTRUATION = "MENSTRUATION_WEIGHT";
     private RedisRepository redisRepository;
@@ -23,6 +26,7 @@ public class MenstruationService {
                 .filter(val -> val.getLabel().equals(weight))
                 .findFirst().orElse(MenstruationWeight.WEIGHT_MEDIUM);
         redisRepository.setForKey(KEY_MENSTRUATION, String.valueOf(menstruationWeight.getCode()));
+        log.warn("登録したよ");
         return menstruationWeight.getLabel() + "で登録したきゅい！";
     }
 }
