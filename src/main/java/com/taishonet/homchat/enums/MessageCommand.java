@@ -24,7 +24,7 @@ public enum MessageCommand {
         return params;
     }),
     LOOK_TRELLO(1, "参照", null),
-    REGISTER_MENSTRUATION(2, "生理登録", (targetStr) -> {
+    REGISTER_MENSTRUATION(2, "生理", (targetStr) -> {
         //TODO 共通化
         Map<String, String> params = new HashMap<>();
         Matcher matcher = RegexUtils.patternMatch("生理、([^、]+)", targetStr);
