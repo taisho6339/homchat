@@ -22,4 +22,8 @@ public class LineService {
         PushMessage pushMessage = new PushMessage(LINE_GROUP_ID, new TextMessage(message));
         lineMessagingClient.pushMessage(pushMessage);
     }
+
+    public void pushMenstruationMessage() {
+
+    }
 }
